@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Schedule Manager";
+}
+
+<h2>Timetable generator</h2>
+
+<form asp-action="GenerateTimetable">
+    <div class="form-group">
+        <label for="className">Enter class name:</label>
+        <input type="text" class="form-control" name="className" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Generate timetable</button>
+</form>
