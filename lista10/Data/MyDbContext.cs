@@ -13,7 +13,15 @@ namespace lista10.Data
         public DbSet<Teacher> Teacher { get; set; }
         public DbSet<Subject> Subject { get; set; }
         public DbSet<Schedule> Schedule { get; set; }
-        public DbSet<lista10.Models.Lesson> Lesson { get; set; }
+        public DbSet<Lesson> Lesson { get; set; }
 
+        public void ClearDatabase()
+        {
+            // Usuń wszystkie dane z bazy danych
+            Lesson.RemoveRange(Lesson);
+
+            // Zapisz zmiany
+            SaveChanges();
+        }
     }
 }

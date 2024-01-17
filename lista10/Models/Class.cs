@@ -12,5 +12,7 @@ namespace lista10.Models
 
         // Navigation property to represent the relationship with Schedule
         public ICollection<Schedule> Schedules { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
+
     }
 }

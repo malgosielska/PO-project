@@ -55,9 +55,10 @@ namespace lista10
                                 LessonId = counter++,
                                 DayOfWeek = dayOfWeek,
                                 Hour = hour,
-                                ClassName = givenClass,
-                                Subject = subject,
-                                Teacher = teacher
+                                ClassId = givenClass.ClassId,
+                                Class = givenClass,
+                                TeacherName = teacher.TeacherName,
+                                SubjectName = teacher.Subject.SubjectName
                             });
                         }
                         randomLesson.Hours--;

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\ScheduleManager\Nowy folder\" />
     <Folder Include="wwwroot\image\" />
   </ItemGroup>
 

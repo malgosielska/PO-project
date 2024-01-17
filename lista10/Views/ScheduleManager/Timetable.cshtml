@@ -30,8 +30,8 @@ else
                         <td>
                             @if (lesson != null)
                             {
-                                <strong>@lesson.Subject.SubjectName</strong><br />
-                                @lesson.Teacher.TeacherName
+                                <strong>@lesson.SubjectName</strong>
+                                @lesson.TeacherName
                             }
                         </td>
                     }
@@ -39,4 +39,17 @@ else
             }
         </tbody>
     </table>
+    <form asp-action="SaveTimetable" asp-controller="ScheduleManager" method="post">
+        @foreach (var lesson in Model)
+        {
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].LessonId" value="@lesson.LessonId" />
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].DayOfWeek" value="@lesson.DayOfWeek" />
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].Hour" value="@lesson.Hour" />
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].Class" value="@lesson.Class" />
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].ClassId" value="@lesson.ClassId" />
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].TeacherName" value="@lesson.TeacherName" />
+            <input type="hidden" name="timetable[@Model.IndexOf(lesson)].SubjectName" value="@lesson.SubjectName" />
+        }
+        <button type="submit" class="btn btn-primary">Save Timetable</button>
+    </form>
 }

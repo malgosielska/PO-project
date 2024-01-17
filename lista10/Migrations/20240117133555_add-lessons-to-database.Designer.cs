@@ -9,8 +9,8 @@ using lista10.Data;
 namespace lista10.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240115174634_add_lessons")]
-    partial class add_lessons
+    [Migration("20240117133555_add-lessons-to-database")]
+    partial class addlessonstodatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,34 @@ namespace lista10.Migrations
                     b.HasKey("ClassId");
 
                     b.ToTable("Class");
+                });
+
+            modelBuilder.Entity("lista10.Models.Lesson", b =>
+                {
+                    b.Property<int>("LessonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Hour")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LessonId");
+
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Lesson");
                 });
 
             modelBuilder.Entity("lista10.Models.Schedule", b =>
@@ -101,6 +129,25 @@ namespace lista10.Migrations
                     b.ToTable("Teacher");
                 });
 
+            modelBuilder.Entity("lista10.Models.Lesson", b =>
+                {
+                    b.HasOne("lista10.Models.Class", "Class")
+                        .WithMany("Lessons")
+                        .HasForeignKey("ClassId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("lista10.Models.Teacher", "Teacher")
+                        .WithMany("Lessons")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Class");
+
+                    b.Navigation("Teacher");
+                });
+
             modelBuilder.Entity("lista10.Models.Schedule", b =>
                 {
                     b.HasOne("lista10.Models.Class", "Class")
@@ -133,12 +180,19 @@ namespace lista10.Migrations
 
             modelBuilder.Entity("lista10.Models.Class", b =>
                 {
+                    b.Navigation("Lessons");
+
                     b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("lista10.Models.Subject", b =>
                 {
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("lista10.Models.Teacher", b =>
+                {
+                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

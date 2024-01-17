@@ -10,19 +10,19 @@ namespace lista10.Models
         [Key]
         public int LessonId { get; set; }
         [Required]
-
         public int DayOfWeek { get; set; } // 1 - poniedziałek, 2 - wtorek, ..., 7 - niedziela
         [Required]
 
         public int Hour { get; set; }
         [Required]
 
-        public Class ClassName { get; set; }
+        public int ClassId { get; set; }
+        public Class Class { get; set; }
         [Required]
 
-        public Subject Subject { get; set; }
+        public string TeacherName { get; set; }
         [Required]
 
-        public Teacher Teacher { get; set; }
+        public string SubjectName { get; set; }
     }
 }

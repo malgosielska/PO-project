@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using lista10.Data;
 
 namespace lista10.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240117151056_changed-lessons")]
+    partial class changedlessons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace lista10.Migrations
                     b.Property<int>("Hour")
                         .HasColumnType("int");
 
-                    b.Property<string>("SubjectName")
+                    b.Property<string>("SUbjectName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

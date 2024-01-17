@@ -1,0 +1,44 @@
+﻿@model List<Lesson>
+
+<h2>DISPLAY TIMETABLE</h2>
+
+@if (Model != null && Model.Any())
+{
+    <h3>Current Timetable for Class: @ViewBag.ClassName</h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Poniedziałek</th>
+                <th>Wtorek</th>
+                <th>Środa</th>
+                <th>Czwartek</th>
+                <th>Piątek</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int hour = 1; hour <= 8; hour++)
+            {
+                <tr>
+                    <th>@hour</th>
+                    @for (int dayOfWeek = 1; dayOfWeek <= 5; dayOfWeek++)
+                    {
+                        var lesson = Model.FirstOrDefault(l => l.DayOfWeek == dayOfWeek && l.Hour == hour);
+                        <td>
+                            @if (lesson != null)
+                            {
+                                <strong>@lesson.SubjectName</strong>
+                                @lesson.TeacherName
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No timetable available for the specified class.</p>
+}

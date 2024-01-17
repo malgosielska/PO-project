@@ -2,12 +2,34 @@
     ViewData["Title"] = "Schedule Manager";
 }
 
-<h2>Timetable generator</h2>
+<h2>Create timetable</h2>
 
 <form asp-action="GenerateTimetable">
     <div class="form-group">
         <label for="className">Enter class name:</label>
         <input type="text" class="form-control" name="className" required />
     </div>
-    <button type="submit" class="btn btn-primary">Generate timetable</button>
+    <button type="submit" class="btn btn-primary">GENERATE</button>
+</form>
+<br />
+
+<h2>Display timetable</h2>
+
+<form asp-action="DisplayTimetable" method="post">
+    <div class="form-group">
+        <label for="className">Enter class name:</label>
+        <input type="text" class="form-control" name="className" required />
+    </div>
+    <button type="submit" class="btn btn-primary">VIEW</button>
+</form>
+<br />
+
+<h2>Delete timetable</h2>
+
+<form asp-action="DeleteTimetable" method="post">
+    <div class="form-group">
+        <label for="className">Enter class name:</label>
+        <input type="text" class="form-control" name="className" required />
+    </div>
+    <button type="submit" class="btn btn-primary">DELETE</button>
 </form>

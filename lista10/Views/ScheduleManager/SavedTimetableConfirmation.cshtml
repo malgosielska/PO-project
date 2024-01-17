@@ -1,0 +1,12 @@
+﻿@model List<Lesson>
+
+<h2>Saved timetable for class @ViewBag.ClassName</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No timetable saved.</p>
+}
+else
+{
+    <p>The timetable has been saved.</p>
+}

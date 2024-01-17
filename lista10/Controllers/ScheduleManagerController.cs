@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace lista10.Controllers
 {
@@ -49,5 +51,77 @@ namespace lista10.Controllers
             return classes;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SaveTimetable(List<Lesson> timetable)
+        {
+            foreach (var lesson in timetable)
+            {
+                // Wykorzystaj metodę Create do obsługi pojedynczej lekcji
+                var _lesson = new Lesson
+                {
+                    DayOfWeek = lesson.DayOfWeek,
+                    Hour = lesson.Hour,
+                    ClassId = lesson.ClassId,
+                    TeacherName = lesson.TeacherName,
+                    SubjectName = lesson.TeacherName,
+                };
+                _context.Lesson.Add(_lesson);
+
+
+            }
+            await _context.SaveChangesAsync();
+
+            return View("SavedTimetableConfirmation", timetable);
+        }
+
+
+        [HttpPost]
+        public IActionResult DisplayTimetable(string className)
+        {
+            var classSchedule = GetClassSchedule(className);
+            return View(classSchedule);
+        }
+
+        private List<Lesson> GetClassSchedule(string className)
+        {
+            return _context.Lesson
+                .Where(s => s.Class.ClassName == className)
+                .ToList();
+        }
+
+        // GET: YourController/DeleteTimetable
+        public IActionResult DeleteTimetable()
+        {
+            return View();
+        }
+
+        // POST: YourController/DeleteTimetable
+        [HttpPost]
+        public async Task<IActionResult> DeleteTimetable(string className)
+        {
+            if (className == null)
+            {
+                return NotFound();
+            }
+
+            var classToDelete = await _context.Class
+                .FirstOrDefaultAsync(c => c.ClassName == className);
+
+            if (classToDelete != null)
+            {
+                var lessonsToDelete = await _context.Lesson
+                    .Where(l => l.Class.ClassId == classToDelete.ClassId)
+                    .ToListAsync();
+
+                _context.Lesson.RemoveRange(lessonsToDelete);
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
+        }
     }
 }
